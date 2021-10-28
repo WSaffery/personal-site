@@ -1,9 +1,11 @@
 import { SkillData } from './data/SkillData'
 
 function Skill(props) {
+
   return (
     <>
-      <img className="Language-logo" flex="33.3%" comment={props.comment} src={props.image} alt={props.name}/>
+      <img className="Language-logo" flex="33.3%"
+ comment={props.comment} src={props.image} alt={props.name}/>
     </>
   );
 }
@@ -16,11 +18,11 @@ function Skill(props) {
 function Skills(props) {
   return (
     <div className="Skills">
-    <span className="Language-logo-wrapper" flex="33.3%" padding="5px">
     {SkillData.map( (x) => <Skill {...x}/>)}
-      </span>
     </div>
   );
 }
+// <div className="Language-logo-wrapper">
+// </div>
 
 export default Skills;

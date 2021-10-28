@@ -1,6 +1,13 @@
 .App {
   text-align: center;
+  width:100%;
+  height: 100%;
 }
+
+body {
+  background-color: #26282c;
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -13,38 +20,84 @@
   }
 }
 
+.About {
+    max-width: 130vh;
+}
+
 .Skills {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
   padding: 0;
+  justify-content: center;
+  align-items: center;
+  max-width: 130vh;
 }
 
 .Experiences {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  padding-inline-start: 10em;
-  padding-inline-end: 10em;
+  justify-content: center;
+  /* align-items: center; */
+  max-width: 130vh;
+  padding-inline-start: 4.5em;
+  padding-inline-end: 4.5em;
 }
 
 .Experience {
-  background-color: grey;
+  background-color: #5c606a;
   border-radius: 0.25rem;
   width:  10em;
+  max-height: 50vh;
   box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
   display: flex;
   flex: 1 1 auto;
   padding: 1rem;
   flex-direction: column;
   overflow: hidden;
-  &:hover {
-    .card__image {
-      filter: contrast(100%);
-    }
-  }
+  transition: all 0.05s ease-in-out;
+  will-change: scroll-position;
+  scroll-behavior: smooth;
+  /* &:hover {
+    max-height: 100%;
+  } */
 }
+
+.Experience_hovered {
+  background-color: #5c606a;
+  border-radius: 0.25rem;
+  max-height: 100%;
+  width:  30em;
+  box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
+  display: flex;
+  flex: 1 1 auto;
+  padding: 1rem;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.05s ease-in-out;
+  will-change: scroll-position;
+  scroll-behavior: smooth;
+  /* &:hover {
+    max-height: 100%;
+  } */
+}
+
+/* .Experience:focus {
+  max-height: 100%;
+}
+
+.Experience:hover {
+  max-height: 100%;
+  width:  30em;
+} */
+
+.Experience:not( :hover ){
+  max-height: 50vh;
+  scroll-behavior: smooth;
+}
+
 
 .cards__item {
   display: flex;
@@ -72,6 +125,7 @@
 .App-header {
   background-color: #26282c;
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,15 +135,16 @@
 }
 
 .time {
-  font-size: 11px;
+  font-size: calc(10px + 0.75vmin);
   padding-top: 4px;
   text-transform: uppercase;
 }
 
 .ExperienceImage {
   display: inline-flex;
-  max-height: 100px;
-  max-width: 100px;
+  min-height: 2.25em;
+  max-height: 4.5em;
+  max-width: 4.5em;
   padding: 0.6em 0.6em 0 0.6em;
 }
 
