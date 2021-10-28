@@ -1,17 +1,21 @@
 import { ExperienceData } from './data/ExperienceData'
+import { CenteredImage } from './CenteredImage'
 
 
 function Experience(props) {
   return (
-   <li class="cards__item">
+   <li className="cards__item">
     <div className="Experience">
     {props.name}
-    <img class="ExperienceImage" src={props.image} alt={props.name}/>
-    {props.time} {props.description} {props.comment}
+    <span className="time">{props.time}</span>
+    <CenteredImage className="ExperienceImage" src={props.image} alt={props.name}/>
+    {props.description}
+    {props.comment.map( (x) => <><br/> {x}</>)}
     </div>
   </li>
   );
 }
+// {props.comment}
 
 
 function Experiences() {
