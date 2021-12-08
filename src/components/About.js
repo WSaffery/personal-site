@@ -7,7 +7,7 @@ function About() {
     William Saffery
     </h1>
     <p>
-       <code>Little About</code>
+       <code>I enjoy coding, developing applications and software, solving compsci problems and working with data in code and beyond.</code>
     </p>
     <Education/>
     </div>

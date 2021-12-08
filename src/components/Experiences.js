@@ -42,25 +42,11 @@ function Experience(props) {
   }
 
   function MovedOff() {
-    // const d = new Date();
     setMouse("Off");
     backToSmall();
-    // if ((d.getMilliseconds() - hvred) >= 300 || mouse == "On") {
-    //   backToSmall();
-    // }
-    // new Promise(resolve => {
-    //   setTimeout(() => {
-    //     if (mouse == "Off") {
-    //       backToSmall();
-    //     }
-    //     else {
-    //       console.log("hi");
-    //     }
-    //   }, 100);
-    // });
   }
 
-  if (props.big == 1 && cls == "Experience" && mouse == "On") {
+  if (props.big == 1 && cls == "Experience") {
     setCls("Experience_hovered");
   }
   // else if (props.big == 0 && mouse == "On") {
@@ -88,7 +74,9 @@ function Experience(props) {
     <span className="time">{props.time}</span>
     <CenteredImage className="ExperienceImage" src={props.image} alt={props.name}/>
     {props.description}
+    <div className="comment">
     {props.comment.map( (x) => <><br/> {x}</>)}
+    </div>
     </div>
   </li>
   );
@@ -120,7 +108,7 @@ function Experiences() {
     else {
       setTimeout(() => {
           setBig(false);
-        }, 100);
+        }, 1000);
       // setBig(-1);
     }
     return true;
