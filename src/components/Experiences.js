@@ -2,29 +2,25 @@ import { ExperienceData } from './data/ExperienceData'
 import { CenteredImage } from './CenteredImage'
 import React from 'react'
 
-function resolveAfter2Seconds(x) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(x);
-    }, 2000);
-  });
+function classString(mainCls, subClasses) {
+  console.log(`${subClasses.join(" ")}`);
+  return `${mainCls} ${mainCls}-${subClasses.join(` ${mainCls}-`)}`;
 }
 
-
-
 function Experience(props) {
-  const [cls, setCls] = React.useState("Experience");
+  const subClasses = Object.keys(props)
+                    .filter( key => props[key] == "subclass");
+  console.log(props);
+  console.log(subClasses);
+  // const [cls, setCls] = React.useState("Experience");
+  const defaultCls = classString("Experience", subClasses);
+  const bigCls = classString("Experience_hovered", subClasses);
+  // const defaultCls = "Experience";
+  const [cls, setCls] = React.useState(defaultCls);
   const [mouse, setMouse] = React.useState(false);
   const [hvred, setHvred]  = React.useState(-1);
 
   function MouseDown() {
-    // setMouse("Down");
-    // const d = new Date();
-    // setHvred(d.getMilliseconds());
-    // console.log("start "+d.getMilliseconds());
-    // if (props.callup(props.index, true)) {
-    //   setCls("Experience_hovered");
-    // }
     console.log(props.index)
     props.callup(props.index, true)
   }
@@ -35,10 +31,6 @@ function Experience(props) {
 
   function backToSmall() {
     props.callup(props.index, false);
-    // if (cls == "Experience_hovered") {
-    //   props.callup(props.index, false);
-    //   setCls("Experience");
-    // }
   }
 
   function MovedOff() {
@@ -46,20 +38,19 @@ function Experience(props) {
     backToSmall();
   }
 
-  if (props.big == 1 && cls == "Experience") {
-    setCls("Experience_hovered");
+
+  if (props.big == 1 && cls == defaultCls) {
+    setCls(bigCls);
   }
-  // else if (props.big == 0 && mouse == "On") {
-  //   setCls("Experience_hovered");
-  // }
+
   else if (props.big == 1 && mouse != "On") {
     backToSmall();
   }
-  else if (props.big == 0 && mouse != "On" && cls != "Experience") {
-    setCls("Experience");
+  else if (props.big == 0 && mouse != "On" && cls != defaultCls) {
+    setCls(defaultCls);
   }
-  if (props.big == -1 && cls != "Experience") {
-    setCls("Experience");
+  if (props.big == -1 && cls != defaultCls) {
+    setCls(defaultCls);
   }
 
 
