@@ -2,24 +2,88 @@ import { ExperienceData } from './data/ExperienceData'
 import { CenteredImage } from './CenteredImage'
 import React from 'react'
 
+function resolveAfter2Seconds(x) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(x);
+    }, 2000);
+  });
+}
+
+
+
 function Experience(props) {
   const [cls, setCls] = React.useState("Experience");
+  const [mouse, setMouse] = React.useState(false);
+  const [hvred, setHvred]  = React.useState(-1);
+
+  function MouseDown() {
+    // setMouse("Down");
+    // const d = new Date();
+    // setHvred(d.getMilliseconds());
+    // console.log("start "+d.getMilliseconds());
+    // if (props.callup(props.index, true)) {
+    //   setCls("Experience_hovered");
+    // }
+    console.log(props.index)
+    props.callup(props.index, true)
+  }
 
   function MovedOn() {
-    if (props.callup(props.index, true)) {
-      setCls("Experience_hovered");
-    }
+    setMouse("On");
+  }
+
+  function backToSmall() {
+    props.callup(props.index, false);
+    // if (cls == "Experience_hovered") {
+    //   props.callup(props.index, false);
+    //   setCls("Experience");
+    // }
   }
 
   function MovedOff() {
-    props.callup(props.index, false);
+    // const d = new Date();
+    setMouse("Off");
+    backToSmall();
+    // if ((d.getMilliseconds() - hvred) >= 300 || mouse == "On") {
+    //   backToSmall();
+    // }
+    // new Promise(resolve => {
+    //   setTimeout(() => {
+    //     if (mouse == "Off") {
+    //       backToSmall();
+    //     }
+    //     else {
+    //       console.log("hi");
+    //     }
+    //   }, 100);
+    // });
+  }
+
+  if (props.big == 1 && cls == "Experience" && mouse == "On") {
+    setCls("Experience_hovered");
+  }
+  // else if (props.big == 0 && mouse == "On") {
+  //   setCls("Experience_hovered");
+  // }
+  else if (props.big == 1 && mouse != "On") {
+    backToSmall();
+  }
+  else if (props.big == 0 && mouse != "On" && cls != "Experience") {
+    setCls("Experience");
+  }
+  if (props.big == -1 && cls != "Experience") {
     setCls("Experience");
   }
 
+
+
   return (
    <li className="cards__item">
-    <div className={cls} onMouseEnter={() => MovedOn()}
-    onMouseLeave={() => MovedOff()}>
+    <div className={cls} onMouseDown={() => MouseDown()}
+      onMouseEnter={() => MovedOn()}
+      onMouseLeave={() => MovedOff()}
+    >
     {props.name}
     <span className="time">{props.time}</span>
     <CenteredImage className="ExperienceImage" src={props.image} alt={props.name}/>
@@ -29,48 +93,49 @@ function Experience(props) {
   </li>
   );
 }
-// {props.comment}
 
-function swapElement(array, indexA, indexB) {
-  var tmp_arr = array;
-  var tmp = tmp_arr[indexA];
-  tmp_arr[indexA] = tmp_arr[indexB];
-  tmp_arr[indexB] = tmp;
-  return tmp_arr
-}
 
 function Experiences() {
   const [big, setBig] = React.useState(false);
-  const [list, setList] = React.useState(ExperienceData);
+  const [data, setData] = React.useState(createData(ExperienceData));
 
   function createData(experienceData) {
     return {"first":experienceData[0], "rest":experienceData.slice(1)};
   }
-  // 
-  // function shiftUp(index) {
-  //   const newFirst = data.splice(index,1);
-  //   data.rest.unshift(data.first);
-  //   data.first = newFirst;
-  // }
+
+  function shiftUp(index) {
+    const newFirst = data.rest.splice(index,1)[0];
+    data.rest.unshift(data.first)
+    var newData = {"first":newFirst, "rest":data.rest}
+    setData(newData);
+  }
 
   function callup(index, val) {
-    if (big && val) {
-      // console.log("swap");
-      return false;
+    if (val == true) {
+      if (index != -1) {
+        shiftUp(index);
+      }
+      setBig(true);
     }
     else {
-      if (val) {
-        setList(swapElement(list, index, 0));
-        setBig(val);
-      }
-      return true;
+      setTimeout(() => {
+          setBig(false);
+        }, 100);
+      // setBig(-1);
     }
+    return true;
   }
-  console.log(list);
+
+  function waitAndCheck() {
+
+  }
+
+  // console.log(data);
 
   return (
     <ul className="Experiences">
-    {list.map( (x) => <Experience key={x} index={list.indexOf(x)} callup={(val) => callup(val)} {...x}/>)}
+    <Experience key={data.first} big={big} index={-1} callup={(index, val) => callup(index, val)} {...data.first}/>
+    {data.rest.map( (x) => <Experience key={x} big={-1} index={data.rest.indexOf(x)} callup={(index, val) => callup(index, val)} {...x}/>)}
     </ul>
   );
 }
