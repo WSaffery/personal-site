@@ -92,6 +92,24 @@ body {
   } */
 }
 
+.Show {
+  /* position: absolute; */
+  /* top: 20%; */
+  /* left: 20%;  */
+  /* top: -50%; */
+  background-color: grey;
+}
+
+.experienceTextDiv {
+  height: 25rem;
+  overflow: hidden;
+}
+
+
+.experienceTextDiv_Big {
+  height: 100%;
+}
+
 .Experience_hovered-victory {
   outline-color: gold;
   /* border-color: gold; */

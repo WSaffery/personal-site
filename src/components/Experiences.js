@@ -7,6 +7,10 @@ function classString(mainCls, subClasses) {
   return `${mainCls} ${mainCls}-${subClasses.join(` ${mainCls}-`)}`;
 }
 
+function ShowButton(props) {
+  return (<><button className={props.className}>Show {props.status}</button></>);
+}
+
 function Experience(props) {
   const subClasses = Object.keys(props)
                     .filter( key => props[key] == "subclass");
@@ -53,21 +57,26 @@ function Experience(props) {
     setCls(defaultCls);
   }
 
+  const wrapTextCls = cls == bigCls?"experienceTextDiv_Big":"experienceTextDiv";
 
+  // const wrapper = `${defaultCls}_wrapper`;
 
   return (
    <li className="cards__item">
-    <div className={cls} onMouseDown={() => MouseDown()}
-      onMouseEnter={() => MovedOn()}
-      onMouseLeave={() => MovedOff()}
-    >
-    {props.name}
+   <div className={cls} onMouseDown={() => MouseDown()}
+     onMouseEnter={() => MovedOn()}
+     onMouseLeave={() => MovedOff()}
+   >
+    <div className={wrapTextCls}>
+    {props.name}<br/>
     <span className="time">{props.time}</span>
     <CenteredImage className="ExperienceImage" src={props.image} alt={props.name}/>
     {props.description}
     <div className="comment">
     {props.comment.map( (x) => <><br/> {x}</>)}
     </div>
+    </div>
+    <ShowButton status="more" className="Show"/>
     </div>
   </li>
   );
