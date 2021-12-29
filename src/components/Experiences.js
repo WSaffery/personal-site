@@ -16,43 +16,44 @@ function Experience(props) {
                     .filter( key => props[key] == "subclass");
   console.log(props);
   console.log(subClasses);
-  // const [cls, setCls] = React.useState("Experience");
   const defaultCls = classString("Experience", subClasses);
   const bigCls = classString("Experience_hovered", subClasses);
-  // const defaultCls = "Experience";
   const [cls, setCls] = React.useState(defaultCls);
-  const [mouse, setMouse] = React.useState(false);
-  const [hvred, setHvred]  = React.useState(-1);
+  const [mouse, setMouse] = React.useState(0);
 
   function MouseDown() {
     console.log(props.index)
-    props.callup(props.index, true)
+    props.callup(props.index, 1)
   }
 
   function MovedOn() {
-    setMouse("On");
+    setMouse(1);
   }
 
   function backToSmall() {
-    props.callup(props.index, false);
+    props.callup(props.index, 0);
   }
 
   function MovedOff() {
-    setMouse("Off");
-    backToSmall();
+    setMouse(0);
+    // backToSmall();
   }
 
+  if (props.big == 1) {
+    props.setOnBig(mouse);
+  }
 
   if (props.big == 1 && cls == defaultCls) {
+    props.setOnBig(1);
     setCls(bigCls);
   }
 
-  else if (props.big == 1 && mouse != "On") {
-    backToSmall();
-  }
-  else if (props.big == 0 && mouse != "On" && cls != defaultCls) {
-    setCls(defaultCls);
-  }
+  // else if (props.big == 1 && mouse != 1) {
+  //   backToSmall();
+  // }
+  // else if (props.big == 0 && mouse != 1 && cls != defaultCls) {
+  //   setCls(defaultCls);
+  // }
   if (props.big == -1 && cls != defaultCls) {
     setCls(defaultCls);
   }
@@ -84,8 +85,9 @@ function Experience(props) {
 
 
 function Experiences() {
-  const [big, setBig] = React.useState(false);
+  const [big, setBig] = React.useState(0);
   const [data, setData] = React.useState(createData(ExperienceData));
+  const [onBig, setOnBig] = React.useState(0);
 
   function createData(experienceData) {
     return {"first":experienceData[0], "rest":experienceData.slice(1)};
@@ -97,18 +99,31 @@ function Experiences() {
     var newData = {"first":newFirst, "rest":data.rest}
     setData(newData);
   }
+  document.onclick = () => {
+    setTimeout(() => {if (onBig == 0 && big == 1) {
+          setBig(-1);
+        }}, 100)
+
+    // if (mouse === 0 && cls === bigCls) {
+    //   props.callup(props.index, 0)
+    // }
+    // else if (cls != bigCls) {
+    //   props.callup(props.index, 1)
+    // }
+  }
 
   function callup(index, val) {
     if (val == true) {
       if (index != -1) {
         shiftUp(index);
       }
-      setBig(true);
+      setBig(1);
     }
     else {
-      setTimeout(() => {
-          setBig(false);
-        }, 1000);
+      setBig(0);
+      // setTimeout(() => {
+      //     setBig(0);
+      //   }, 1000);
       // setBig(-1);
     }
     return true;
@@ -122,7 +137,7 @@ function Experiences() {
 
   return (
     <ul className="Experiences">
-    <Experience key={data.first} big={big} index={-1} callup={(index, val) => callup(index, val)} {...data.first}/>
+    <Experience key={data.first} big={big} setOnBig={setOnBig} index={-1} callup={(index, val) => callup(index, val)} {...data.first}/>
     {data.rest.map( (x) => <Experience key={x} big={-1} index={data.rest.indexOf(x)} callup={(index, val) => callup(index, val)} {...x}/>)}
     </ul>
   );
