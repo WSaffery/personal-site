@@ -5,7 +5,7 @@ export const ExperienceData = [
     time: "June 8, 2021 - August 24, 2021",
     description: "52 hour Mechatronics hackerthon.",
     victory: "subclass",
-    comment: ["Me and my team of 4 won with an extremely effective solution.",
+    comment: ["My team of 4 and I won with an extremely effective solution.",
               "I enjoyed setting up and planning our teams approach to the project, which I think made us much more confident: having many approaches and possibilities planned out going in.",
               "Of course I also did a lot of programming, our team collaboration was very streamlined from experience with SYNCS Hack, we pair programmed alot.",
               "Really enjoyed the team bonding experience was lots of fun."],
