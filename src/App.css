@@ -105,6 +105,13 @@ body {
   overflow: hidden;
 }
 
+.ShadowCover {
+  height: 100%;
+  width: 100%;
+  filter: blur(1.5rem);
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 50%, rgba(0,0,0,1) 100%);
+}
 
 .experienceTextDiv_Big {
   height: 100%;
@@ -112,6 +119,12 @@ body {
 
 .Experience_hovered-victory {
   outline-color: gold;
+  /* border-color: gold; */
+}
+
+.Experience-shade {
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 50%, rgba(0,0,0,1) 100%);
+
   /* border-color: gold; */
 }
 
